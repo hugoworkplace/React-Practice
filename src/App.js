@@ -1,59 +1,54 @@
 import Header from "./components/Header";
 import Contractors from './components/Contractors';
 import AddContractor from "./components/AddContractor";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 
 
 const App = () => {
   const [showAdd, setShowAdd] = useState('false');
-  const [contractors, setContractors] = useState([
-    {
-      id: 1,
-      fname: 'Forrest',
-      lname: 'Row',
-      phone: '+61 430 024 501',
-      email: 'bx.cc20e@docsw.site',
-    },
-    {
-      id: 2,
-      fname: 'Rocky',
-      lname: 'Ballard',
-      phone: '+61 404 871 952',
-      email: 'jdon.saif.584@bulegoblog.com',
-    },
-    {
-      id: 3,
-      fname: 'Neil',
-      lname: 'Read',
-      phone: '+61 450 436 571',
-      email: 'dagimanunesz@codw.site',
-    },
-    {
-      id: 4,
-      fname: 'Alex',
-      lname: 'Hudson',
-      phone: '+61 493 209 777',
-      email: 'ganti.ana@billseo.com',
-    },
-    {
-      id: 5,
-      fname: 'Gavin',
-      lname: 'Pope',
-      phone: '+61 431 460 549',
-      email: 'kle.na555x@king.buzz',
-    },
-  ]);
+  const [contractors, setContractors] = useState([]);
 
-  const addContractor = (contractor) => {
-    const id = Math.floor(Math.random() * 10000) + 1
-    const newContractor = { id, ...contractor }
-    setContractors([...contractors, newContractor])
+  useEffect(()=>{
+    const getContractors = async () => {
+      const contractorsFromServer = await fetchContractors()
+      setContractors(contractorsFromServer)
+    }
+    getContractors()
+  }, [])
+
+  // Fetch contractors from server
+  const fetchContractors = async () =>{
+    const res = await fetch('http://localhost:5000/contractors')
+    const data = await res.json()
+    return data
   }
 
-  const onDelete = (id) => {
+  // Delete contractor on server
+  const deleteContractor = async (id) => { 
+    await fetch(`http://localhost:5000/contractors/${id}`,{method: 'DELETE'})
     setContractors(contractors.filter((contractor) => contractor.id !== id))
   }
+
+  // Add a new contractor
+  const addContractor = async (contractor) => {
+    const res = await fetch('http://localhost:5000/contractors',{
+      method: 'POST',
+      headers:{ 'Content-type':'application/json',},
+      body: JSON.stringify(contractor),
+    })
+
+    const data = await res.json()
+    console.log(data)
+    console.log(contractor)
+    setContractors([...contractors,data])
+
+    // const id = Math.floor(Math.random() * 10000) + 1
+    // const newContractor = { id, ...contractor }
+    // setContractors([...contractors, newContractor])
+  }
+
+  
 
 
   return (
@@ -61,7 +56,7 @@ const App = () => {
       <Header title="Hello" onAdd={() => setShowAdd(!showAdd)} onShowAdd={showAdd}/>
       {showAdd && <AddContractor onAdd={addContractor} />}
       {contractors.length > 0 ?
-        (<Contractors contractors={contractors} onDelete={onDelete} />) :
+        (<Contractors contractors={contractors} onDelete={deleteContractor} />) :
         ('No contractor to show')}
     </div>
   );
