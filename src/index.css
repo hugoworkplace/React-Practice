@@ -71,6 +71,10 @@ body {
   justify-content: space-between;
 }
 
+.contractor p{
+  margin-left: 5px;
+}
+
 .add-form {
   margin-bottom: 40px;
 }

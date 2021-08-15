@@ -1,13 +1,6 @@
 {
   "contractors": [
     {
-      "id": 1,
-      "fname": "Forrest",
-      "lname": "Row",
-      "phone": "+61 430 024 501",
-      "email": "bx.cc20e@docsw.site"
-    },
-    {
       "id": 2,
       "fname": "Rocky",
       "lname": "Ballard",

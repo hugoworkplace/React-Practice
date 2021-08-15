@@ -53,7 +53,7 @@ const App = () => {
 
   return (
     <div className="container">
-      <Header title="Hello" onAdd={() => setShowAdd(!showAdd)} onShowAdd={showAdd}/>
+      <Header title="Contractor List" onAdd={() => setShowAdd(!showAdd)} onShowAdd={showAdd}/>
       {showAdd && <AddContractor onAdd={addContractor} />}
       {contractors.length > 0 ?
         (<Contractors contractors={contractors} onDelete={deleteContractor} />) :

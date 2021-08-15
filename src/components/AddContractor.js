@@ -42,7 +42,7 @@ const AddContractor = ({onAdd}) => {
                 <label>Email</label>
                 <input type='text' value={email} onChange={(e)=> setEmail(e.target.value)}></input>
             </div>
-            <input type='submit' value='Save Contractor' className='btn btn-block'></input>
+            <input type='submit' value='Create New Contractor' className='btn btn-block'></input>
         </form>
 
 
