@@ -3,8 +3,12 @@
 https://www.hugoworkplace.xyz/
 
 Install npm packages
-### `npm test`
+```bash
+npm install
+```
 
 Run Application
-### `npm start`
+```bash
+npm start
+```
 
