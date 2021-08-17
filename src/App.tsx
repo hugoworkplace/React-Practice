@@ -1,15 +1,30 @@
 import Header from "./components/Header";
 import Contractors from './components/Contractors';
 import AddContractor from "./components/AddContractor";
-import { useState, useEffect } from 'react'
+import {  useState, useEffect } from 'react'
+import React from 'react'
 
+interface Contractor {
+  id?:string,
+  firstName:string,
+  lastName:string,
+  phone:string,
+  email:string,
+}
 
+interface IContractor{
+  id:string,
+  firstName:string,
+  lastName:string,
+  phone:string,
+  email:string,
+}
 
-const App = () => {
-  const [showAdd, setShowAdd] = useState('false');
-  const [contractors, setContractors] = useState([]);
+const App: React.FC = () => {
+  const [showAdd, setShowAdd] = useState<boolean>(true);
+  const [contractors, setContractors] = useState<IContractor[]>([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const getContractors = async () => {
       const contractorsFromServer = await fetchContractors()
       setContractors(contractorsFromServer)
@@ -18,42 +33,43 @@ const App = () => {
   }, [])
 
   // Fetch contractors from server
-  const fetchContractors = async () =>{
+  const fetchContractors = async () => {
     const res = await fetch('https://hugoworkplace.xyz/api/contractors')
     const data = await res.json()
+    console.log(data)
     return data
   }
 
   // Delete contractor on server
-  const deleteContractor = async (id) => { 
-    await fetch(`https://hugoworkplace.xyz/api/contractors${id}`,{method: 'DELETE'})
+  const deleteContractor = async (id:string) => {
+    await fetch(`https://hugoworkplace.xyz/api/contractors/${id}`, { method: 'DELETE' })
     setContractors(contractors.filter((contractor) => contractor.id !== id))
   }
 
   // Add a new contractor
-  const addContractor = async (contractor) => {
-    const res = await fetch('https://hugoworkplace.xyz/api/contractors',{
+  const addContractor = async (contractor:Contractor) => {
+    const res = await fetch('https://hugoworkplace.xyz/api/contractors', {
       method: 'POST',
-      headers:{ 'Content-type':'application/json',},
+      headers: { 'Content-type': 'application/json', },
       body: JSON.stringify(contractor),
     })
 
     const data = await res.json()
     console.log(data)
     console.log(contractor)
-    setContractors([...contractors,data])
+    setContractors([...contractors, data])
 
     // const id = Math.floor(Math.random() * 10000) + 1
     // const newContractor = { id, ...contractor }
     // setContractors([...contractors, newContractor])
   }
 
-  
+
 
 
   return (
     <div className="container">
-      <Header title="Contractor List" onAdd={() => setShowAdd(!showAdd)} showAdd={showAdd}/>
+      <Header title="Contractor List" onAdd={() => setShowAdd(!showAdd)} showAdd={showAdd} />
       {showAdd && <AddContractor onAdd={addContractor} />}
       {contractors.length > 0 ?
         (<Contractors contractors={contractors} onDelete={deleteContractor} />) :

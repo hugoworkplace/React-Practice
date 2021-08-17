@@ -1,14 +1,29 @@
 import { useState } from "react"
+import React from 'react'
+
+interface Contractor {
+    id?: string,
+    firstName: string,
+    lastName: string,
+    phone: string,
+    email: string,
+}
+interface IAddContractorProps{
+    onAdd:(object:Contractor) => void
+}
 
 
-
-const AddContractor = ({onAdd}) => {
-    const onSubmit = (e) =>{
+const AddContractor:React.FC<IAddContractorProps> = ({onAdd}) => {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
+    const onSubmit = (e:React.FormEvent) =>{
         e.preventDefault()
-        if(!fname){
+        if(!firstName){
             alert('Please enter a First name')
         }
-        if(!lname){
+        if(!lastName){
             alert('Please enter a Last name')
         }
         if(!phone){
@@ -17,22 +32,19 @@ const AddContractor = ({onAdd}) => {
         if(!email){
             alert('Please enter an email address')
         }
-        onAdd({fname,lname,phone,email})
+        onAdd({firstName,lastName,phone,email})
 
     }
-    const [fname, setFname] = useState('');
-    const [lname, setLname] = useState('');
-    const [phone, setPhone] = useState('');
-    const [email, setEmail] = useState('');
+
     return (
         <form className='add-form' onSubmit={onSubmit}>
             <div className='form-control'>
                 <label>First Name</label>
-                <input type='text' value={fname} onChange={(e)=> setFname(e.target.value)}></input>
+                <input type='text' value={firstName} onChange={(e)=> setFirstName(e.target.value)}></input>
             </div>
             <div className='form-control'>
                 <label>Last Name</label>
-                <input type='text' value={lname} onChange={(e)=> setLname(e.target.value)}></input>
+                <input type='text' value={lastName} onChange={(e)=> setLastName(e.target.value)}></input>
             </div>
             <div className='form-control'>
                 <label>Phone</label>
