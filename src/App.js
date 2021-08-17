@@ -26,7 +26,7 @@ const App = () => {
 
   // Delete contractor on server
   const deleteContractor = async (id) => { 
-    await fetch(`https://hugoworkplace.xyz/api/contractors${id}`,{method: 'DELETE'})
+    await fetch(`https://hugoworkplace.xyz/api/contractors/${id}`,{method: 'DELETE'})
     setContractors(contractors.filter((contractor) => contractor.id !== id))
   }
 
