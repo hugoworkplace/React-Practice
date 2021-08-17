@@ -41,8 +41,13 @@ const App: React.FC = () => {
   }
 
   // Delete contractor on server
+<<<<<<< HEAD:src/App.tsx
   const deleteContractor = async (id:string) => {
     await fetch(`https://hugoworkplace.xyz/api/contractors/${id}`, { method: 'DELETE' })
+=======
+  const deleteContractor = async (id) => { 
+    await fetch(`https://hugoworkplace.xyz/api/contractors/${id}`,{method: 'DELETE'})
+>>>>>>> 3073ff160b9d9ce8c6fb5ddd2b9f9baa832c839b:src/App.js
     setContractors(contractors.filter((contractor) => contractor.id !== id))
   }
 
