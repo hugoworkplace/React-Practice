@@ -19,20 +19,20 @@ const App = () => {
 
   // Fetch contractors from server
   const fetchContractors = async () =>{
-    const res = await fetch('http://localhost:5000/contractors')
+    const res = await fetch('https://hugoworkplace.xyz/api/contractors')
     const data = await res.json()
     return data
   }
 
   // Delete contractor on server
   const deleteContractor = async (id) => { 
-    await fetch(`http://localhost:5000/contractors/${id}`,{method: 'DELETE'})
+    await fetch(`https://hugoworkplace.xyz/api/contractors${id}`,{method: 'DELETE'})
     setContractors(contractors.filter((contractor) => contractor.id !== id))
   }
 
   // Add a new contractor
   const addContractor = async (contractor) => {
-    const res = await fetch('http://localhost:5000/contractors',{
+    const res = await fetch('https://hugoworkplace.xyz/api/contractors',{
       method: 'POST',
       headers:{ 'Content-type':'application/json',},
       body: JSON.stringify(contractor),
@@ -53,7 +53,7 @@ const App = () => {
 
   return (
     <div className="container">
-      <Header title="Contractor List" onAdd={() => setShowAdd(!showAdd)} onShowAdd={showAdd}/>
+      <Header title="Contractor List" onAdd={() => setShowAdd(!showAdd)} showAdd={showAdd}/>
       {showAdd && <AddContractor onAdd={addContractor} />}
       {contractors.length > 0 ?
         (<Contractors contractors={contractors} onDelete={deleteContractor} />) :
