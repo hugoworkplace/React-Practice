@@ -1,23 +1,23 @@
 import Header from "./components/Header";
 import Contractors from './components/Contractors';
 import AddContractor from "./components/AddContractor";
-import {  useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import React from 'react'
 
 interface Contractor {
-  id?:string,
-  firstName:string,
-  lastName:string,
-  phone:string,
-  email:string,
+  id?: string,
+  firstName: string,
+  lastName: string,
+  phone: string,
+  email: string,
 }
 
-interface IContractor{
-  id:string,
-  firstName:string,
-  lastName:string,
-  phone:string,
-  email:string,
+interface IContractor {
+  id: string,
+  firstName: string,
+  lastName: string,
+  phone: string,
+  email: string,
 }
 
 const App: React.FC = () => {
@@ -41,18 +41,13 @@ const App: React.FC = () => {
   }
 
   // Delete contractor on server
-<<<<<<< HEAD:src/App.tsx
   const deleteContractor = async (id:string) => {
     await fetch(`https://hugoworkplace.xyz/api/contractors/${id}`, { method: 'DELETE' })
-=======
-  const deleteContractor = async (id) => { 
-    await fetch(`https://hugoworkplace.xyz/api/contractors/${id}`,{method: 'DELETE'})
->>>>>>> 3073ff160b9d9ce8c6fb5ddd2b9f9baa832c839b:src/App.js
     setContractors(contractors.filter((contractor) => contractor.id !== id))
   }
 
   // Add a new contractor
-  const addContractor = async (contractor:Contractor) => {
+  const addContractor = async (contractor: Contractor) => {
     const res = await fetch('https://hugoworkplace.xyz/api/contractors', {
       method: 'POST',
       headers: { 'Content-type': 'application/json', },
@@ -60,8 +55,7 @@ const App: React.FC = () => {
     })
 
     const data = await res.json()
-    console.log(data)
-    console.log(contractor)
+
     setContractors([...contractors, data])
 
     // const id = Math.floor(Math.random() * 10000) + 1
