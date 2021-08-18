@@ -1,6 +1,3 @@
-
-# React Practice for a 
-
 # React-Practice (Contractor List)
 
 https://www.hugoworkplace.xyz/
